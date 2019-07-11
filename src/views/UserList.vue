@@ -37,40 +37,39 @@ export default {
       this.$router.push({ name: 'user-input' })
     },
     updateUser () {
-      this.$router.push({ name: 'user-input', params: { user: this.multipleSelection[0] }})
+      this.$router.push({ name: 'user-input', params: { user: this.multipleSelection[0] } })
     },
-    changeFun(val) {
+    changeFun (val) {
       this.multipleSelection = val
     },
     deleteUser (rows) {
-      if(this.multipleSelection.length != 1 ){
+      if (this.multipleSelection.length !== 1) {
         this.$alert('请选择一条记录', '删除用户', {
-          confirmButtonText: '确定',
+          confirmButtonText: '确定'
         })
-        return 
-        }
+        return
+      }
       this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$http.delete('http://localhost:8081/users/' + (this.multipleSelection[0].id)).then(response => {
-            this.$http.get('http://localhost:8081/users/list').then(response => {
-              this.tableData = response.data.content
-              this.total = response.data.totalElements
-            })
-            this.$message({
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete('http://localhost:8081/users/' + (this.multipleSelection[0].id)).then(response => {
+          this.$http.get('http://localhost:8081/users/list').then(response => {
+            this.tableData = response.data.content
+            this.total = response.data.totalElements
+          })
+          this.$message({
             type: 'success',
             message: '删除成功!'
           })
-          })
-          
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })       
         })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
     handleCurrentChange (val) {
       this.$http.get('http://localhost:8081/users/list?pageNum=' + (val - 1)).then(response => {
