@@ -1,7 +1,7 @@
  <template>
  <div>
     <el-button type="primary" size ="small" @click="createUser" plain>新建</el-button>
-      <UserInput v-bind="ms"><el-button type="primary" size ="small" @click="updateUser" plain>修改</el-button></UserInput>
+    <el-button type="primary" size ="small" @click="updateUser" plain>修改</el-button>
     <el-button  type="danger"  size ="small" @click="deleteUser" plain>删除</el-button>
     <el-table :data="tableData" @selection-change="changeFun">
       <el-table-column type="selection" prop='id'></el-table-column>
@@ -37,8 +37,7 @@ export default {
       this.$router.push({ name: 'user-input' })
     },
     updateUser () {
-      console.log(this.tableData[1])
-      this.$router.push({ name: 'user-input', params: { user: this.tableData[1] }})
+      this.$router.push({ name: 'user-input', params: { user: this.multipleSelection[0] }})
     },
     changeFun(val) {
       this.multipleSelection = val

@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ms}}
 <el-form :rules="rules" :model="user" ref="userForm" >
   <el-form-item label="名字" prop="name" >
     <el-input v-model="user.name" placeholder="请输入姓名" minlength="3" maxlength="17" show-word-limit></el-input>
@@ -29,9 +28,6 @@
 <script>
 export default {
   name: 'UserInput',
-  created () {
-    console.log(this.user)
-  },
   data () {
     return {
       user: {
@@ -54,6 +50,13 @@ export default {
         ]
       }
     }
+  },
+  created () {
+    if(this.$route.params.user){
+      this.user = this.$route.params.user
+      console.log(this.$route.params.user)
+    }
+      
   },
   methods: {
     onSubmit (formName) {
